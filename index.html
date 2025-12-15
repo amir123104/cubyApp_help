@@ -1,0 +1,767 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Help & Installation Guide - Cuby App</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --pure-black: #000000;
+            --dark-gray: #1a1a1a;
+            --medium-gray: #333333;
+            --light-gray: #666666;
+            --lighter-gray: #999999;
+            --lightest-gray: #cccccc;
+            --off-white: #f5f5f5;
+            --pure-white: #ffffff;
+            --border-gray: #e5e5e5;
+        }
+        
+        * {
+            box-sizing: border-box;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+        }
+        
+        body {
+            background-color: var(--pure-white);
+            color: var(--pure-black);
+            margin: 0;
+            padding: 0;
+            min-height: 100vh;
+            position: relative;
+            overflow-x: hidden;
+        }
+        
+        /* Geometric background pattern */
+        body:before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: 
+                radial-gradient(circle at 10% 20%, rgba(0, 0, 0, 0.03) 0%, transparent 20%),
+                radial-gradient(circle at 90% 80%, rgba(0, 0, 0, 0.03) 0%, transparent 20%),
+                linear-gradient(45deg, transparent 49%, rgba(0, 0, 0, 0.02) 50%, transparent 51%),
+                linear-gradient(-45deg, transparent 49%, rgba(0, 0, 0, 0.02) 50%, transparent 51%);
+            background-size: 400px 400px;
+            opacity: 0.6;
+            z-index: -1;
+        }
+        
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 60px 20px;
+        }
+        
+        .header {
+            text-align: center;
+            margin-bottom: 80px;
+            position: relative;
+        }
+        
+        .logo {
+            font-size: 3.2rem;
+            font-weight: 800;
+            color: var(--pure-black);
+            letter-spacing: -1px;
+            margin-bottom: 20px;
+            display: inline-block;
+            position: relative;
+        }
+        
+        .logo:after {
+            content: '';
+            position: absolute;
+            bottom: -12px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 4px;
+            background: var(--pure-black);
+        }
+        
+        .page-title {
+            color: var(--light-gray);
+            font-size: 1.1rem;
+            font-weight: 400;
+            max-width: 600px;
+            margin: 30px auto 0;
+            line-height: 1.6;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+        
+        .card {
+            background: var(--pure-white);
+            border-radius: 24px;
+            padding: 50px;
+            margin-bottom: 40px;
+            border: 2px solid var(--pure-black);
+            box-shadow: 12px 12px 0px 0px var(--pure-black);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .card:hover {
+            transform: translate(-4px, -4px);
+            box-shadow: 16px 16px 0px 0px var(--pure-black);
+        }
+        
+        .card:before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: var(--pure-black);
+        }
+        
+        .section-title {
+            font-size: 2.2rem;
+            font-weight: 700;
+            margin-bottom: 40px;
+            color: var(--pure-black);
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+        
+        .section-title:before {
+            content: '?';
+            font-size: 2rem;
+            width: 60px;
+            height: 60px;
+            background: var(--pure-black);
+            color: var(--pure-white);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 800;
+        }
+        
+        .problem-articles {
+            display: flex;
+            flex-direction: column;
+            gap: 30px;
+        }
+        
+        .article {
+            background: var(--off-white);
+            border-radius: 16px;
+            padding: 32px;
+            border: 2px solid var(--pure-black);
+            transition: all 0.3s ease;
+            position: relative;
+            cursor: pointer;
+        }
+        
+        .article:hover {
+            background: var(--pure-white);
+            transform: translateY(-4px);
+            box-shadow: 8px 8px 0px 0px var(--pure-black);
+        }
+        
+        .article-number {
+            position: absolute;
+            top: -16px;
+            left: -16px;
+            background: var(--pure-black);
+            color: var(--pure-white);
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 1.2rem;
+            border: 2px solid var(--pure-black);
+        }
+        
+        .article-title {
+            font-size: 1.6rem;
+            font-weight: 700;
+            margin-bottom: 20px;
+            color: var(--pure-black);
+            padding-right: 40px;
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+        }
+        
+        .article-title i {
+            color: var(--pure-black);
+            font-size: 1.4rem;
+            margin-top: 4px;
+        }
+        
+        .article-content {
+            color: var(--medium-gray);
+            font-size: 1.05rem;
+            line-height: 1.8;
+            padding-left: 28px;
+            border-left: 3px solid var(--lighter-gray);
+            margin-left: 8px;
+        }
+        
+        .steps-section {
+            background: var(--off-white);
+            border-radius: 20px;
+            padding: 40px;
+            margin: 60px 0;
+            border: 2px solid var(--pure-black);
+            position: relative;
+        }
+        
+        .steps-title {
+            font-size: 1.8rem;
+            font-weight: 700;
+            margin-bottom: 30px;
+            color: var(--pure-black);
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        
+        .steps-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+            gap: 24px;
+        }
+        
+        .step-item {
+            display: flex;
+            gap: 20px;
+            align-items: flex-start;
+            padding: 24px;
+            background: var(--pure-white);
+            border-radius: 12px;
+            border: 2px solid var(--pure-black);
+            transition: transform 0.3s ease;
+        }
+        
+        .step-item:hover {
+            transform: translateX(8px);
+        }
+        
+        .step-number {
+            background: var(--pure-black);
+            color: var(--pure-white);
+            min-width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 1.2rem;
+            border: 2px solid var(--pure-black);
+            flex-shrink: 0;
+        }
+        
+        .step-content {
+            flex: 1;
+        }
+        
+        .step-title {
+            font-size: 1.3rem;
+            font-weight: 600;
+            margin-bottom: 8px;
+            color: var(--pure-black);
+        }
+        
+        .step-description {
+            color: var(--medium-gray);
+            font-size: 1.05rem;
+            line-height: 1.7;
+        }
+        
+        .contact-section {
+            text-align: center;
+            padding: 60px 0;
+            background: var(--pure-white);
+            border-radius: 20px;
+            border: 2px solid var(--pure-black);
+            margin: 60px 0;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .contact-title {
+            font-size: 1.8rem;
+            font-weight: 700;
+            margin-bottom: 20px;
+            color: var(--pure-black);
+        }
+        
+        .contact-subtitle {
+            color: var(--light-gray);
+            font-size: 1.1rem;
+            margin-bottom: 40px;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+            line-height: 1.6;
+        }
+        
+        .contact-email {
+            display: inline-flex;
+            align-items: center;
+            gap: 16px;
+            background: var(--pure-black);
+            color: var(--pure-white);
+            padding: 20px 40px;
+            border-radius: 12px;
+            font-size: 1.3rem;
+            font-weight: 600;
+            text-decoration: none;
+            border: 2px solid var(--pure-black);
+            transition: all 0.3s ease;
+            margin-bottom: 30px;
+        }
+        
+        .contact-email:hover {
+            background: var(--pure-white);
+            color: var(--pure-black);
+            transform: translateY(-4px);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+        }
+        
+        .response-time {
+            color: var(--light-gray);
+            font-size: 1rem;
+            font-style: italic;
+        }
+        
+        .footer {
+            text-align: center;
+            padding: 60px 0 40px;
+            color: var(--light-gray);
+            font-size: 1rem;
+            border-top: 2px solid var(--pure-black);
+            margin-top: 80px;
+            position: relative;
+        }
+        
+        .footer:before {
+            content: '';
+            position: absolute;
+            top: -2px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 4px;
+            background: var(--pure-black);
+        }
+        
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 40px;
+            margin-top: 30px;
+            flex-wrap: wrap;
+        }
+        
+        .footer-links a {
+            color: var(--medium-gray);
+            text-decoration: none;
+            transition: all 0.3s ease;
+            font-weight: 500;
+            position: relative;
+            padding: 8px 0;
+        }
+        
+        .footer-links a:hover {
+            color: var(--pure-black);
+        }
+        
+        .footer-links a:after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--pure-black);
+            transition: width 0.3s ease;
+        }
+        
+        .footer-links a:hover:after {
+            width: 100%;
+        }
+        
+        .back-to-home {
+            display: inline-flex;
+            align-items: center;
+            gap: 12px;
+            background: var(--pure-white);
+            color: var(--pure-black);
+            padding: 16px 32px;
+            border-radius: 12px;
+            font-weight: 600;
+            text-decoration: none;
+            border: 2px solid var(--pure-black);
+            transition: all 0.3s ease;
+            margin-top: 40px;
+        }
+        
+        .back-to-home:hover {
+            background: var(--pure-black);
+            color: var(--pure-white);
+            transform: translateY(-4px);
+            box-shadow: 8px 8px 0px 0px rgba(0, 0, 0, 0.2);
+        }
+        
+        @media (max-width: 768px) {
+            .container {
+                padding: 40px 20px;
+            }
+            
+            .logo {
+                font-size: 2.4rem;
+            }
+            
+            .card {
+                padding: 30px 20px;
+                margin-left: -10px;
+                margin-right: -10px;
+            }
+            
+            .section-title {
+                font-size: 1.8rem;
+            }
+            
+            .section-title:before {
+                width: 50px;
+                height: 50px;
+                font-size: 1.5rem;
+            }
+            
+            .article-title {
+                font-size: 1.4rem;
+            }
+            
+            .contact-email {
+                padding: 16px 30px;
+                font-size: 1.1rem;
+            }
+            
+            .footer-links {
+                flex-direction: column;
+                gap: 20px;
+            }
+            
+            .steps-section {
+                padding: 30px 20px;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .logo {
+                font-size: 2rem;
+            }
+            
+            .page-title {
+                font-size: 0.9rem;
+                letter-spacing: 1px;
+            }
+            
+            .step-item {
+                flex-direction: column;
+                gap: 16px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <div class="header">
+            <div class="logo">CUBY HELP</div>
+            <div class="page-title">Installation Guide & Support</div>
+        </div>
+        
+        <!-- Main Card -->
+        <div class="card">
+            <h1 class="section-title">Common Problems & Solutions</h1>
+            
+            <div class="problem-articles">
+                <article class="article" onclick="toggleArticle(1)">
+                    <div class="article-number">1</div>
+                    <h2 class="article-title">
+                        <i class="fas fa-shield-alt"></i>
+                        Windows says the app is potentially harmful after downloading
+                    </h2>
+                    <div class="article-content" id="article-content-1">
+                        <p>Unfortunately, the app is currently not verified by Microsoft, which means that Windows SmartScreen may show a security warning. This is a common occurrence for new applications that haven't been signed with an extended validation certificate.</p>
+                        <p style="margin-top: 16px;"><strong>Solution:</strong> Click "More info" in the warning dialog, then select "Run anyway" to proceed with the installation. Rest assured, Cuby is completely safe and does not contain any malware or viruses.</p>
+                        <div style="margin-top: 20px; padding: 16px; background: rgba(0,0,0,0.05); border-radius: 8px; border-left: 4px solid var(--pure-black);">
+                            <strong style="display: block; margin-bottom: 8px;">ℹ Note:</strong>
+                            <span style="font-size: 0.95rem;">This warning will only appear on first installation. Future updates will not trigger it.</span>
+                        </div>
+                    </div>
+                </article>
+                
+                <article class="article" onclick="toggleArticle(2)">
+                    <div class="article-number">2</div>
+                    <h2 class="article-title">
+                        <i class="fas fa-download"></i>
+                        How to install Cuby?
+                    </h2>
+                    <div class="article-content" id="article-content-2">
+                        <p>Follow these steps for a successful installation:</p>
+                        <ol style="margin: 16px 0 16px 20px; color: var(--medium-gray); line-height: 1.7;">
+                            <li>Download the installer file (named "downloads-cubyApp.zip")</li>
+                            <li><strong>Important:</strong> You don't need to extract the ZIP file</li>
+                            <li>Double-click the ZIP file to open it</li>
+                            <li>Locate and run "setup.exe" inside the ZIP archive</li>
+                            <li>Follow the on-screen installation wizard</li>
+                            <li>Restart your computer if prompted</li>
+                        </ol>
+                        <p>The installation should begin immediately after running setup.exe. The entire process typically takes 1-2 minutes.</p>
+                    </div>
+                </article>
+                
+                <article class="article" onclick="toggleArticle(3)">
+                    <div class="article-number">3</div>
+                    <h2 class="article-title">
+                        <i class="fas fa-exclamation-triangle"></i>
+                        Installation fails or shows errors
+                    </h2>
+                    <div class="article-content" id="article-content-3">
+                        <p>If you encounter errors during installation, try these troubleshooting steps:</p>
+                        <ul style="margin: 16px 0 16px 20px; color: var(--medium-gray); line-height: 1.7;">
+                            <li><strong>Close all applications</strong> before installing</li>
+                            <li>Run the installer as <strong>Administrator</strong> (right-click → "Run as administrator")</li>
+                            <li>Check that you have <strong>at least 2.5 GB</strong> of free disk space</li>
+                            <li>Ensure you're running <strong>Windows 10 or 11 (64-bit)</strong></li>
+                            <li>Temporarily disable your antivirus software during installation</li>
+                            <li>Make sure .NET Framework 4.8 or later is installed</li>
+                        </ul>
+                        <p>If problems persist, please contact our support team with a screenshot of the error message.</p>
+                    </div>
+                </article>
+                
+                <article class="article" onclick="toggleArticle(4)">
+                    <div class="article-number">4</div>
+                    <h2 class="article-title">
+                        <i class="fas fa-desktop"></i>
+                        App crashes or doesn't start
+                    </h2>
+                    <div class="article-content" id="article-content-4">
+                        <p>If Cuby crashes on launch or doesn't start properly:</p>
+                        <ul style="margin: 16px 0 16px 20px; color: var(--medium-gray); line-height: 1.7;">
+                            <li><strong>Update your graphics drivers</strong> to the latest version</li>
+                            <li>Install all pending <strong>Windows Updates</strong></li>
+                            <li>Try running the app in <strong>compatibility mode</strong></li>
+                            <li>Check Windows Event Viewer for detailed error logs</li>
+                            <li>Reinstall Cuby completely (uninstall first, then install fresh)</li>
+                        </ul>
+                        <div style="margin-top: 20px; padding: 16px; background: rgba(0,0,0,0.05); border-radius: 8px;">
+                            <strong style="display: block; margin-bottom: 8px;">💡 Quick fix:</strong>
+                            <span style="font-size: 0.95rem;">Press Windows + R, type "appwiz.cpl", find Cuby in the list, click "Repair" if available.</span>
+                        </div>
+                    </div>
+                </article>
+            </div>
+            
+            <!-- Installation Steps -->
+            <div class="steps-section">
+                <h2 class="steps-title">
+                    <i class="fas fa-list-ol"></i>
+                    Complete Installation Guide
+                </h2>
+                <ol class="steps-list">
+                    <li class="step-item">
+                        <div class="step-number">1</div>
+                        <div class="step-content">
+                            <h3 class="step-title">Download the Installer</h3>
+                            <p class="step-description">Visit the download page and click the download button. Save the ZIP file to your preferred location (Desktop or Downloads folder recommended).</p>
+                        </div>
+                    </li>
+                    <li class="step-item">
+                        <div class="step-number">2</div>
+                        <div class="step-content">
+                            <h3 class="step-title">Handle Security Warning</h3>
+                            <p class="step-description">If Windows SmartScreen shows a warning, click "More info" then "Run anyway". This is normal for new, unverified applications.</p>
+                        </div>
+                    </li>
+                    <li class="step-item">
+                        <div class="step-number">3</div>
+                        <div class="step-content">
+                            <h3 class="step-title">Run Setup.exe</h3>
+                            <p class="step-description">Open the ZIP file (no extraction needed) and double-click "setup.exe" to launch the installer. Grant administrative permissions if prompted.</p>
+                        </div>
+                    </li>
+                    <li class="step-item">
+                        <div class="step-number">4</div>
+                        <div class="step-content">
+                            <h3 class="step-title">Follow Installation Wizard</h3>
+                            <p class="step-description">Accept the license agreement, choose installation location (default recommended), and click "Install". Wait for the process to complete.</p>
+                        </div>
+                    </li>
+                    <li class="step-item">
+                        <div class="step-number">5</div>
+                        <div class="step-content">
+                            <h3 class="step-title">Launch & Configure</h3>
+                            <p class="step-description">After installation, Cuby will launch automatically. Complete the initial setup wizard to configure your preferences and workspace.</p>
+                        </div>
+                    </li>
+                </ol>
+            </div>
+            
+            <!-- Contact Section -->
+            <div class="contact-section">
+                <h2 class="contact-title">
+                    <i class="fas fa-life-ring"></i>
+                    Still Need Help?
+                </h2>
+                <p class="contact-subtitle">
+                    Our support team is ready to assist you with any issues not covered in this guide. 
+                    We typically respond within 24 hours.
+                </p>
+                
+                <a href="mailto:atronamir5@gmail.com" class="contact-email">
+                    <i class="fas fa-envelope"></i>
+                    atronamir5@gmail.com
+                </a>
+                
+                <p class="response-time">
+                    <i class="fas fa-clock"></i>
+                    Average response time: 4-8 hours
+                </p>
+                
+                <div style="margin-top: 40px; padding: 20px; background: var(--off-white); border-radius: 12px; border: 2px solid var(--pure-black); max-width: 600px; margin-left: auto; margin-right: auto;">
+                    <h3 style="font-size: 1.2rem; font-weight: 600; margin-bottom: 12px; color: var(--pure-black);">
+                        <i class="fas fa-lightbulb"></i>
+                        Before Contacting Support
+                    </h3>
+                    <ul style="text-align: left; color: var(--medium-gray); font-size: 0.95rem; line-height: 1.6; padding-left: 20px;">
+                        <li>Include your Windows version (Settings → System → About)</li>
+                        <li>Take a screenshot of any error messages</li>
+                        <li>Note the exact steps that led to the problem</li>
+                        <li>Check if the issue occurs on a fresh restart</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <!-- Back to Home -->
+            <div style="text-align: center; margin-top: 60px;">
+                <a href="index.html" class="back-to-home">
+                    <i class="fas fa-arrow-left"></i>
+                    Back to Download Page
+                </a>
+            </div>
+        </div>
+        
+        <!-- Footer -->
+        <div class="footer">
+            <div style="font-size: 0.95rem; color: var(--light-gray); margin-bottom: 10px;">
+                © 2024 Cuby Systems Support Center
+            </div>
+            <div class="footer-links">
+                <a href="index.html"><i class="fas fa-download" style="margin-right: 8px;"></i>Download</a>
+                <a href="#"><i class="fas fa-book" style="margin-right: 8px;"></i>Documentation</a>
+                <a href="#"><i class="fas fa-file-alt" style="margin-right: 8px;"></i>Release Notes</a>
+                <a href="#"><i class="fas fa-lock" style="margin-right: 8px;"></i>Privacy Policy</a>
+                <a href="#"><i class="fas fa-balance-scale" style="margin-right: 8px;"></i>Terms of Use</a>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Initialize the page
+        function initPage() {
+            // Collapse all articles by default
+            const articles = document.querySelectorAll('.article-content');
+            articles.forEach(article => {
+                article.style.display = 'none';
+            });
+            
+            // Add click sound effect
+            const playClickSound = () => {
+                // Simple click sound simulation
+                const audioContext = new (window.AudioContext || window.webkitAudioContext)();
+                const oscillator = audioContext.createOscillator();
+                const gainNode = audioContext.createGain();
+                
+                oscillator.connect(gainNode);
+                gainNode.connect(audioContext.destination);
+                
+                oscillator.frequency.value = 400;
+                oscillator.type = 'sine';
+                
+                gainNode.gain.setValueAtTime(0.1, audioContext.currentTime);
+                gainNode.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + 0.1);
+                
+                oscillator.start();
+                oscillator.stop(audioContext.currentTime + 0.1);
+            };
+            
+            // Add sound to articles and buttons
+            document.querySelectorAll('.article, .contact-email, .back-to-home').forEach(element => {
+                element.addEventListener('click', playClickSound);
+            });
+            
+            // Open first article by default
+            setTimeout(() => {
+                toggleArticle(1);
+            }, 500);
+            
+            // Add floating animation to logo
+            const logo = document.querySelector('.logo');
+            let floatDirection = 1;
+            
+            setInterval(() => {
+                const currentTransform = logo.style.transform || 'translateY(0px)';
+                const currentY = parseFloat(currentTransform.match(/translateY\(([^)]+)px\)/)?.[1] || 0);
+                
+                if (currentY >= 5) floatDirection = -1;
+                if (currentY <= -5) floatDirection = 1;
+                
+                logo.style.transform = `translateY(${currentY + floatDirection * 0.5}px)`;
+            }, 100);
+        }
+        
+        // Toggle article content
+        function toggleArticle(articleNumber) {
+            const articleContent = document.getElementById(`article-content-${articleNumber}`);
+            const isVisible = articleContent.style.display === 'block';
+            
+            // Close all articles
+            document.querySelectorAll('.article-content').forEach(content => {
+                content.style.display = 'none';
+            });
+            
+            // Toggle clicked article
+            if (!isVisible) {
+                articleContent.style.display = 'block';
+                
+                // Smooth scroll to article
+                articleContent.scrollIntoView({
+                    behavior: 'smooth',
+                    block: 'nearest'
+                });
+            }
+        }
+        
+        // Initialize when page loads
+        document.addEventListener('DOMContentLoaded', initPage);
+        
+        // Make toggleArticle globally available
+        window.toggleArticle = toggleArticle;
+    </script>
+</body>
+</html>
